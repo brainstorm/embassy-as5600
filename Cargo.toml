@@ -1,0 +1,23 @@
+[package]
+edition = "2021"
+name = "embassy-avr-as5600-encoder"
+version = "0.1.0"
+authors = ["brainstorm <brainstorm@nopcode.org>"]
+resolver = "2"
+
+[dependencies]
+panic-halt = "0.2"
+embassy-executor = { git = "https://github.com/embassy-rs/embassy", features = ["arch-avr", "nightly", "executor-thread"] }
+avr-device = { version = "0.5", features = ["atmega328p", "rt"] }
+as5600 = "0.6.0"
+
+[profile.dev]
+panic = "abort"
+lto = true
+opt-level = "s"
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "s"
