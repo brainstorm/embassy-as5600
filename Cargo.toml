@@ -8,7 +8,7 @@ resolver = "2"
 [dependencies]
 panic-halt = "0.2"
 embassy-executor = { git = "https://github.com/embassy-rs/embassy", features = ["arch-avr", "nightly", "executor-thread"] }
-avr-device = { version = "0.5", features = ["atmega328p", "rt"] }
+avr-device = { version = "0.5", features = ["atmega328p", "rt", "critical-section-impl"] }
 as5600 = "0.6.0"
 
 [profile.dev]
