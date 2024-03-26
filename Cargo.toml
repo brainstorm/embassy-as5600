@@ -8,8 +8,10 @@ resolver = "2"
 [dependencies]
 panic-halt = "0.2"
 embassy-executor = { git = "https://github.com/embassy-rs/embassy", features = ["arch-avr", "nightly", "executor-thread"] }
-avr-device = { version = "0.5", features = ["atmega328p", "rt", "critical-section-impl"] }
+avr-device = { version = "0.5", features = ["atmega2560", "rt", "critical-section-impl"] }
+arduino-hal = { git = "https://github.com/Rahix/avr-hal", features = ["arduino-mega2560"] }
 as5600 = "0.6.0"
+ufmt = "0.2.0"
 
 [profile.dev]
 panic = "abort"
