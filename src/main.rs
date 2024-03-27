@@ -23,7 +23,9 @@ async fn main(_spawner: Spawner) {
     );
 
     let mut as5600 = As5600::new(i2c);
-    let status = as5600.magnet_status().unwrap();
+    loop {
+        let status = as5600.magnet_status().unwrap();
 
-    ufmt::uwriteln!(&mut serial, "{:?}", u8::from(status)).unwrap_infallible();
+        ufmt::uwriteln!(&mut serial, "{:?}", u8::from(status)).unwrap_infallible();
+    }
 }
