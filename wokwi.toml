@@ -1,5 +1,5 @@
 [wokwi]
 version = 1
-firmware = "target/avr-atmega328p/release/embassy-avr-as5600-encoder.elf"
-elf = "target/avr-atmega328p/debug/embassy-avr-as5600-encoder.elf"
+firmware = "target/avr-atmega2560/debug/embassy-avr-as5600-encoder.elf"
+elf = "target/avr-atmega2560/debug/embassy-avr-as5600-encoder.elf"
 rfc2217ServerPort = 4000
