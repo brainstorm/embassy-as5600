@@ -7,7 +7,7 @@ resolver = "2"
 
 [dependencies]
 panic-halt = "0.2"
-embassy-executor = { git = "https://github.com/embassy-rs/embassy", features = ["arch-avr", "executor-thread", "task-arena-size-64"] }
+embassy-executor = { git = "https://github.com/embassy-rs/embassy", features = ["arch-avr", "executor-thread", "nightly"] }
 avr-device = { version = "0.5", features = ["atmega2560", "rt", "critical-section-impl"] }
 arduino-hal = { git = "https://github.com/Rahix/avr-hal", features = ["arduino-mega2560"] }
 as5600 = "0.6"
