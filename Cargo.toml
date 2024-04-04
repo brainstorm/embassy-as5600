@@ -15,8 +15,8 @@ ufmt = "0.2"
 
 [profile.dev]
 panic = "abort"
-lto = true
-opt-level = "s"
+#lto = true
+opt-level = "s" # mandatory, otherwise we'll get:  "error: ran out of registers during register allocation"
 
 [profile.release]
 panic = "abort"
