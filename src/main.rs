@@ -3,7 +3,6 @@
 #![feature(impl_trait_in_assoc_type)]
 
 //use panic_halt as _;
-
 use arduino_hal::{ pins, prelude::_unwrap_infallible_UnwrapInfallible, I2c, Peripherals };
 use as5600::As5600;
 
@@ -60,8 +59,20 @@ async fn main(_spawner: Spawner) {
 
     loop {
         ufmt::uwriteln!(&mut serial, "{}", "Reading angle").unwrap();
-        let status = encoder.angle().unwrap();
-        ufmt::uwriteln!(&mut serial, "{}", "Angle has been read").unwrap_infallible();
-        ufmt::uwriteln!(&mut serial, "{}", status).unwrap_infallible();
+        match encoder.angle() {
+            Ok(_) => ufmt::uwriteln!(&mut serial, "all ok").expect("msg"),
+            Err(e) => {
+                    match e {
+                        as5600::error::Error::Communication(_) => ufmt::uwriteln!(&mut serial, "comms").expect("comms"),
+                        as5600::error::Error::Status(_) => ufmt::uwriteln!(&mut serial, "status").expect("status"),
+                        as5600::error::Error::Configuration(_) => ufmt::uwriteln!(&mut serial, "config").expect("config"),
+                        as5600::error::Error::MaximumPositionPersistsReached => ufmt::uwriteln!(&mut serial, "maxpospersistsreached").expect("maxpos"),
+                        as5600::error::Error::MagnetRequired => ufmt::uwriteln!(&mut serial, "magnet_required").expect("magnet"),
+                        as5600::error::Error::MangConfigPersistenceExhausted => ufmt::uwriteln!(&mut serial, "mang?").expect("mang?"),
+                    }
+                }
+            }
+        };
+        //ufmt::uwriteln!(&mut serial, "{}", "Angle has been read").unwrap_infallible();
+        //ufmt::uwriteln!(&mut serial, "{}", status).unwrap_infallible();
     }
-}
