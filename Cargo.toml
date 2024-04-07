@@ -9,7 +9,7 @@ resolver = "2"
 panic-halt = "0.2"
 embassy-executor = { git = "https://github.com/embassy-rs/embassy", features = ["arch-avr", "executor-thread", "nightly"] }
 avr-device = { version = "0.5", features = ["atmega2560", "rt", "critical-section-impl"] }
-#avr-tester = "0.2"
+avr-tester = "0.2"
 arduino-hal = { git = "https://github.com/Rahix/avr-hal", features = ["arduino-mega2560"] }
 as5600 = { version = "0.8", features = ["async"] }
 ufmt = "0.2"
