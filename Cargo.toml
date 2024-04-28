@@ -6,22 +6,26 @@ authors = ["brainstorm <brainstorm@nopcode.org>"]
 resolver = "2"
 
 [dependencies]
-panic-halt = "0.2"
-embassy-executor = { git = "https://github.com/embassy-rs/embassy", features = ["arch-avr", "executor-thread", "nightly"] }
-avr-device = { version = "0.5", features = ["atmega2560", "rt", "critical-section-impl"] }
-#avr-tester = "0.2"
-arduino-hal = { git = "https://github.com/Rahix/avr-hal", features = ["arduino-mega2560"] }
-as5600 = { version = "0.8", features = ["async"] }
-ufmt = "0.2"
+embassy-executor = { version = "0", features = ["task-arena-size-8192"] }
+esp-backtrace = { version = "0", features = [
+    "esp32s3",
+    "exception-handler",
+    "panic-handler",
+    "println",
+] }
+esp-hal = { version = "0", git = "https://github.com/esp-rs/esp-hal", features = [ "esp32s3", "embassy", "embassy-time-timg0", "embassy-executor-thread", "async", "embedded-io-async" ] }
+esp-println = { version = "0", features = ["esp32s3"] }
+embedded-io-async = "0"
+as5600 = { version = "0", features = ["async"] }
 
 [profile.dev]
-panic = "abort"
-lto = true
-opt-level = "s" # mandatory, otherwise we'll get:  "error: ran out of registers during register allocation"
+opt-level = "s"
 
 [profile.release]
-panic = "abort"
-codegen-units = 1
-debug = true
-lto = true
-opt-level = "s"
+codegen-units = 1 # LLVM can perform better optimizations using a single thread
+debug = 2
+debug-assertions = false
+incremental = false
+lto = 'fat'
+opt-level = 's'
+overflow-checks = false

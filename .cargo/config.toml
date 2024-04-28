@@ -1,8 +1,16 @@
-[build]
-target = "avr-specs/avr-atmega2560.json"
+[target.xtensa-esp32s3-none-elf]
+runner = "espflash flash --monitor"
 
-[target.'cfg(target_arch = "avr")']
-runner = "ravedude mega2560 -cb 115200"
+
+[env]
+ESP_LOGLEVEL="INFO"
+
+[build]
+rustflags = [
+  "-C", "link-arg=-nostartfiles",
+]
+
+target = "xtensa-esp32s3-none-elf"
 
 [unstable]
 build-std = ["core"]
