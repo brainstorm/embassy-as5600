@@ -3,7 +3,7 @@
 #![feature(impl_trait_in_assoc_type)]
 
 //use panic_halt as _;
-use arduino_hal::{ pins, prelude::_unwrap_infallible_UnwrapInfallible, I2c, Peripherals };
+use arduino_hal::{ delay_ms, pins, prelude::_unwrap_infallible_UnwrapInfallible, I2c, Peripherals };
 use as5600::As5600;
 
 use embassy_executor::Spawner;
@@ -48,17 +48,25 @@ async fn main(_spawner: Spawner) {
     let peripherals = Peripherals::take().unwrap();
     let pins = pins!(peripherals);
     let mut serial = arduino_hal::default_serial!(peripherals, pins, 115200);                                                                        
-    let i2c = I2c::new(
+    let i2c = I2c::with_external_pullup(
         peripherals.TWI,
-        pins.d20.into_pull_up_input(),
-        pins.d21.into_pull_up_input(),
-        50000,
+        pins.d20,
+        pins.d21,
+        100000,
     );
+    //.i2cdetect(&mut serial, Direction::Write);
+    // .ping_device(0x36, Direction::Write);
+
+    // match i2c {
+    //     Ok(res) => ufmt::uwriteln!(&mut serial, "The result of ping is: {}", res).expect("msg"),
+    //     Err(_) => ufmt::uwriteln!(&mut serial, "error").expect("error"),
+    // }
 
     let mut encoder = As5600::new(i2c);
 
     loop {
-        ufmt::uwriteln!(&mut serial, "{}", "Reading angle").unwrap();
+        delay_ms(20);
+        //ufmt::uwriteln!(&mut serial, "{}", "Reading angle").unwrap();
         match encoder.angle() {
             Ok(_) => ufmt::uwriteln!(&mut serial, "all ok").expect("msg"),
             Err(e) => {
