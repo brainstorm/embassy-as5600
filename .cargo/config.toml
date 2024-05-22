@@ -1,6 +1,12 @@
 [build]
 target = "avr-specs/avr-atmega2560.json"
 
+[test]
+target = "aarch64-apple-darwin"
+
+[target.aarch64-apple-darwin]
+runner = "simavr"
+
 [target.'cfg(target_arch = "avr")']
 runner = "ravedude mega2560 -cb 115200"
 
