@@ -6,7 +6,7 @@ authors = ["brainstorm <brainstorm@nopcode.org>"]
 resolver = "2"
 
 [dependencies]
-embassy-executor = { version = "0", features = ["task-arena-size-8192"] }
+embassy-executor = { version = "0", features = ["task-arena-size-40960"] }
 esp-backtrace = { version = "0", features = [
     "esp32s3",
     "exception-handler",
@@ -17,6 +17,7 @@ esp-hal = { version = "0", git = "https://github.com/esp-rs/esp-hal", features =
 esp-println = { version = "0", features = ["esp32s3"] }
 embedded-io-async = "0"
 as5600 = { version = "0", features = ["async"] }
+embassy-time = "0.3.0"
 
 [profile.dev]
 opt-level = "s"
