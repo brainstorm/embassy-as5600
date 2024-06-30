@@ -6,9 +6,9 @@ use as5600::As5600;
 use embassy_executor::Spawner;
 use esp_backtrace as _;
 use esp_hal::{
-    clock::ClockControl, delay::Delay, embassy, gpio::Io, i2c::I2C, peripherals::Peripherals, prelude::*, system::SystemControl, timer::TimerGroup
+    clock::ClockControl, delay::Delay, embassy, gpio::Io, i2c::I2C, peripherals::Peripherals,
+    prelude::*, system::SystemControl, timer::timg::TimerGroup,
 };
-
 
 #[main]
 async fn main(_spawner: Spawner) {
@@ -20,7 +20,7 @@ async fn main(_spawner: Spawner) {
     embassy::init(&clocks, timg0);
     esp_println::println!("Bing!");
     let io = Io::new(peripherals.GPIO, peripherals.IO_MUX);
-    
+
     let i2c = I2C::new_async(
         peripherals.I2C0,
         io.pins.gpio41,
@@ -29,7 +29,7 @@ async fn main(_spawner: Spawner) {
         &clocks,
     );
     let delay = Delay::new(&clocks);
-    
+
     let mut encoder = As5600::new(i2c);
     loop {
         if let Ok(angle) = encoder.raw_angle() {
