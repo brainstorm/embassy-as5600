@@ -48,7 +48,7 @@ fn panic(info: &core::panic::PanicInfo) -> ! {
 async fn main(_spawner: Spawner) {
     let peripherals = Peripherals::take().unwrap();
     let pins = pins!(peripherals);
-    let mut serial = arduino_hal::default_serial!(peripherals, pins, 115200);                                                                        
+    let mut serial = arduino_hal::default_serial!(peripherals, pins, 115200);
     let i2c = I2c::new(
         peripherals.TWI,
         pins.d20.into_pull_up_input(),
