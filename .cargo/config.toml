@@ -1,5 +1,6 @@
 [build]
-target = "avr-specs/avr-atmega2560.json"
+target = 'avr-none'
+rustflags = ["-C", "target-cpu=atmega2560"]
 
 [test]
 target = "aarch64-apple-darwin"
@@ -11,4 +12,4 @@ runner = "simavr"
 runner = "ravedude mega2560 -cb 115200"
 
 [unstable]
-build-std = ["core"]
+build-std = ["core", "alloc"]
