@@ -14,3 +14,5 @@ $ apt-get install avrdude clang pkg-config gcc-avr gdb-avr libelf-dev # Linux
 $ brew install avrdude                                                # OSX
 $ cargo install ravedude
 ```
+
+WARNING: Currently crashes on real hardware, possible illegal instruction or more obscure error that needs [close debugging attention](https://n-eq.github.io/blog/2025/05/13/rust-avr-arduino-blink).
